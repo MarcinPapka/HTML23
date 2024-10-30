@@ -1,0 +1,15 @@
+stages:
+  - test
+
+
+run-tests:
+  stage: test
+  image: python:3.10
+  script:
+    - pip install -r requirements.txt
+    - pytest tests/ --html=report_$CI_PIPELINE_ID.html --self-contained-html -n=3
+  artifacts:
+    when: always
+    paths:
+      - report_$CI_PIPELINE_ID.html
+    expire_in: 1 week

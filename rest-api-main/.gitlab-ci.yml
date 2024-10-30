@@ -1,0 +1,14 @@
+stages:
+  - test
+
+run-api-tests:
+  stage: test
+  image: python:3.11
+  script:
+    - pip install -r requirements.txt
+    - pytest tests/ --html=report.html --self-contained-html -n=4
+  artifacts:
+    when: always
+    paths:
+      - report.html
+    expire_in: 7 days
